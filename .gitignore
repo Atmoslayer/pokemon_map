@@ -12,6 +12,8 @@ __pycache__/
 .Python
 env/
 pictures/
+pokemon_entities/
+media/
 build/
 staticfiles/
 develop-eggs/
