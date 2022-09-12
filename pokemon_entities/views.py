@@ -84,7 +84,9 @@ def show_pokemon(request, pokemon_id):
             'pokemon_id': pokemon_object.id,
             'img_url': request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon_entity_object.pokemon.image}'),
             'title_ru': pokemon_object.title,
-            'description': pokemon_object.description
+            'description': pokemon_object.description,
+            'title_en': pokemon_object.title_en,
+            'title_jp': pokemon_object.title_jp
         }
 
     return render(request, 'pokemon.html', context={

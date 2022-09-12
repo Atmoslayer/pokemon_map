@@ -12,6 +12,8 @@ class Pokemon(models.Model):
     defence = models.IntegerField(null=True)
     stamina = models.IntegerField(null=True)
     description = models.CharField(null=True, max_length=400)
+    title_en = models.CharField(null=True, max_length=20)
+    title_jp = models.CharField(null=True, max_length=20)
 
     def __str__(self):
         return self.title
