@@ -80,13 +80,21 @@ def show_pokemon(request, pokemon_id):
 
     pokemons_on_page = {}
     for pokemon_object in pokemon_objects:
+        previous_evolution = {}
+        if pokemon_object.previous_evolution:
+            previous_evolution = {
+                'title_ru': pokemon_object.previous_evolution.title,
+                'pokemon_id': pokemon_object.previous_evolution.id,
+                'img_url': request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon_object.previous_evolution.image}')
+            }
         pokemons_on_page = {
             'pokemon_id': pokemon_object.id,
             'img_url': request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon_entity_object.pokemon.image}'),
             'title_ru': pokemon_object.title,
             'description': pokemon_object.description,
             'title_en': pokemon_object.title_en,
-            'title_jp': pokemon_object.title_jp
+            'title_jp': pokemon_object.title_jp,
+            'previous_evolution': previous_evolution
         }
 
     return render(request, 'pokemon.html', context={

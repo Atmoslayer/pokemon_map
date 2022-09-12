@@ -9,6 +9,7 @@ class Pokemon(models.Model):
     image = models.ImageField(null=True)
     appeared_at = models.DateTimeField(null=True)
     disappeared_at = models.DateTimeField(null=True)
+    previous_evolution = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     level = models.IntegerField(null=True)
     health = models.IntegerField(null=True)
     strength = models.IntegerField(null=True)
