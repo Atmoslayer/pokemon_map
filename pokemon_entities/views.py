@@ -37,8 +37,8 @@ def show_all_pokemons(request):
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity_object in pokemon_entities_objects:
         time_now = datetime.datetime.now().timestamp()
-        pokemon_appeared_time = localtime(pokemon_entity_object.pokemon.appeared_at).timestamp()
-        pokemon_disappeared_time = localtime(pokemon_entity_object.pokemon.disappeared_at).timestamp()
+        pokemon_appeared_time = localtime(pokemon_entity_object.appeared_at).timestamp()
+        pokemon_disappeared_time = localtime(pokemon_entity_object.disappeared_at).timestamp()
         if pokemon_appeared_time <= time_now <= pokemon_disappeared_time:
             add_pokemon(
                 folium_map, pokemon_entity_object.lat,
@@ -69,8 +69,8 @@ def show_pokemon(request, pokemon_id):
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity_object in pokemon_entities_objects:
         time_now = datetime.datetime.now().timestamp()
-        pokemon_appeared_time = localtime(pokemon_entity_object.pokemon.appeared_at).timestamp()
-        pokemon_disappeared_time = localtime(pokemon_entity_object.pokemon.disappeared_at).timestamp()
+        pokemon_appeared_time = localtime(pokemon_entity_object.appeared_at).timestamp()
+        pokemon_disappeared_time = localtime(pokemon_entity_object.disappeared_at).timestamp()
         if pokemon_appeared_time <= time_now <= pokemon_disappeared_time:
             add_pokemon(
                 folium_map, pokemon_entity_object.lat,
