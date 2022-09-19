@@ -68,15 +68,20 @@ def show_pokemon(request, pokemon_id):
         pokemon_id=int(pokemon_id),
         appeared_at__lte=time_now,
         disappeared_at__gte=time_now)
+    active_pokemons = True
+
+    if not pokemon_entities:
+        pokemon_entities = PokemonEntity.objects.filter(pokemon_id=int(pokemon_id))
+        active_pokemons = False
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity in pokemon_entities:
-
-        add_pokemon(
-            folium_map, pokemon_entity.lat,
-            pokemon_entity.lon,
-            request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon_entity.pokemon.image}')
-        )
+        if active_pokemons:
+            add_pokemon(
+                folium_map, pokemon_entity.lat,
+                pokemon_entity.lon,
+                request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon_entity.pokemon.image}')
+            )
 
     previous_evolution = {}
     next_evolution = {}
@@ -92,6 +97,7 @@ def show_pokemon(request, pokemon_id):
             'pokemon_id': pokemon.next_evolution.id,
             'img_url': request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon.next_evolution.image}')
         }
+
     pokemons_on_page = {
         'pokemon_id': pokemon.id,
         'img_url': request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon_entity.pokemon.image}'),
