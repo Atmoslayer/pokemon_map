@@ -63,20 +63,24 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
 
+    time_now = datetime.datetime.now().timestamp()
     pokemon_objects = Pokemon.objects.filter(id=int(pokemon_id))
-    pokemon_entities_objects = PokemonEntity.objects.filter(pokemon_id=int(pokemon_id))
+    pokemon_entities_objects = PokemonEntity.objects.filter(
+        pokemon_id=int(pokemon_id),
+        appeared_at__it=time_now,
+        disappeared_at__gt=time_now)
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity_object in pokemon_entities_objects:
-        time_now = datetime.datetime.now().timestamp()
-        pokemon_appeared_time = localtime(pokemon_entity_object.appeared_at).timestamp()
-        pokemon_disappeared_time = localtime(pokemon_entity_object.disappeared_at).timestamp()
-        if pokemon_appeared_time <= time_now <= pokemon_disappeared_time:
-            add_pokemon(
-                folium_map, pokemon_entity_object.lat,
-                pokemon_entity_object.lon,
-                request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon_entity_object.pokemon.image}')
-            )
+
+        # pokemon_appeared_time = localtime(pokemon_entity_object.appeared_at).timestamp()
+        # pokemon_disappeared_time = localtime(pokemon_entity_object.disappeared_at).timestamp()
+        # if pokemon_appeared_time <= time_now <= pokemon_disappeared_time:
+        add_pokemon(
+            folium_map, pokemon_entity_object.lat,
+            pokemon_entity_object.lon,
+            request.build_absolute_uri(f'http://127.0.0.1:8000/media/{pokemon_entity_object.pokemon.image}')
+        )
 
     pokemons_on_page = {}
     for pokemon_object in pokemon_objects:
