@@ -64,7 +64,7 @@ def show_pokemon(request, pokemon_id):
 
     time_now = datetime.datetime.now()
     pokemon = Pokemon.objects.get(id=int(pokemon_id))
-    pokemon_entities = PokemonEntity.objects.filter(
+    pokemon_entities = pokemon.entity.filter(
         pokemon_id=int(pokemon_id),
         appeared_at__lte=time_now,
         disappeared_at__gte=time_now)
@@ -85,8 +85,6 @@ def show_pokemon(request, pokemon_id):
 
     previous_evolution = pokemon.previous_evolution
     next_evolutions = pokemon.next_evolution.filter(previous_evolution=pokemon)
-    print(previous_evolution)
-    print(next_evolutions)
     previous_evolution_data = {}
     next_evolution_data = {}
 
