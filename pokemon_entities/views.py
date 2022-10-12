@@ -4,7 +4,7 @@ import json
 
 from django.utils.timezone import localtime
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from pokemon_entities.models import Pokemon, PokemonEntity
 
@@ -63,7 +63,7 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
 
     time_now = datetime.datetime.now()
-    pokemon = Pokemon.objects.get(id=int(pokemon_id))
+    pokemon = get_object_or_404(Pokemon, id=int(pokemon_id))
     pokemon_entities = pokemon.entities.filter(
         pokemon_id=int(pokemon_id),
         appeared_at__lte=time_now,
