@@ -2,10 +2,10 @@ from django.db import models  # noqa F401
 
 
 class Pokemon(models.Model):
-    title = models.CharField(default='Покемон', max_length=35, verbose_name='Имя на русском')
-    title_en = models.CharField(default='Pokemon', max_length=35, verbose_name='Имя на английском')
-    title_jp = models.CharField(default='ポケモン', max_length=35, verbose_name='Имя на японском')
-    description = models.TextField(default='Описание покемона', verbose_name='Описание')
+    title = models.CharField(max_length=35, verbose_name='Имя на русском')
+    title_en = models.CharField(null=True, blank=True, max_length=35, verbose_name='Имя на английском')
+    title_jp = models.CharField(null=True, blank=True, max_length=35, verbose_name='Имя на японском')
+    description = models.TextField(null=True, blank=True, verbose_name='Описание')
     image = models.ImageField(null=True, verbose_name='Картинка')
     previous_evolution = models.ForeignKey(
         'self',
