@@ -22,7 +22,7 @@
       </div>
       <div class="m-2 ml-4 col-11 col-sm-8 col-lg-8 col-xl-8">
         <h1>{{pokemon.title_ru}}</h1>
-        <p><b>{{pokemon.title_ru}}</b> (анг. {{pokemon.title_en}}, яп. {{pokemon.title_jp}}) — {{pokemon.description}}</p>
+        <p><b>{{pokemon.title_ru}}</b> {% if pokemon.title_en %}(анг. {{pokemon.title_en}} {% endif %}{% if pokemon.title_jp %}, яп. {{pokemon.title_jp}}){% endif %} {% if  pokemon.description %} — {{pokemon.description}}{% endif %}</p>
         <hr>
         <div class="mt-4">
           {% if pokemon.next_evolution or pokemon.previous_evolution %}
